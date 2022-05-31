@@ -44,12 +44,8 @@ app.use("/user", pageRouter);
 app.use("/user", addressRouter);
 app.use("/user", orderRouter);
 
-// Mongo connection
-const CLUSTER_URL = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.lhems.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`;
-const LOCAL_URL = "mongodb://localhost:27017/Ecommerce";
-
 mongoose
-  .connect(LOCAL_URL, {
+  .connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
