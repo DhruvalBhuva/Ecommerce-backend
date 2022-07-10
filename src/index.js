@@ -44,6 +44,15 @@ app.use("/user", pageRouter);
 app.use("/user", addressRouter);
 app.use("/user", orderRouter);
 
+// --------------- Deployment ---------------
+__dirname = path.resolve();
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join(__dirname, "Admin","build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "Admin","build","index.html"));
+  })
+}
 mongoose
   .connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
